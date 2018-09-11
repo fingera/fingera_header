@@ -1,13 +1,19 @@
 #include <fingera/header.h>
 
-#include <gtest/gtest.h>
 #include <stdio.h>
+
+#include <gtest/gtest.h>
 
 TEST(fingera_header, all) {
   uint8_t buffer[] = {
       0, 1, 2, 3, 4, 5, 6, 7,
   };
   uint8_t write_buf[8];
+
+  cleanse(write_buf, sizeof(write_buf));
+
+  size_t unused_var = _countof_(write_buf);
+  _unused_(unused_var);
 
   EXPECT_EQ(readle16(buffer), 0x0100);
   EXPECT_EQ(readbe16(buffer), 0x0001);

@@ -39,7 +39,6 @@
 #define FINGERA_COMPILER_MAJOR (_MSC_VER / 100 - 5)
 #else
 #define FINGERA_COMPILER_MAJOR (_MSC_VER / 100 - 6)
-#define inline __inline
 #endif
 #define FINGERA_COMPILER_MINOR (_MSC_VER % 100)
 

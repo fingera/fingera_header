@@ -8,11 +8,15 @@
 #ifndef _FINGERA_HEADER_ENDIAN_H_
 #define _FINGERA_HEADER_ENDIAN_H_
 
+#include <stddef.h>
+#include <string.h>
+
 #include <fingera/header/language.h>
 #include <fingera/header/os.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <string.h>
+#include <fingera/header/stdint.h>
+#include <fingera/header/utility.h>
+
+FINGERA_EXTERN_C_BEGIN
 
 #if (FINGERA_OS == FINGERA_OS_ANDROID) || (FINGERA_OS == FINGERA_OS_LINUX)
 #include <endian.h>
@@ -39,7 +43,7 @@
 #elif (FINGERA_OS == FINGERA_OS_WINDOWS)
 #include <stdlib.h>
 
-#if BYTE_ORDER == LITTLE_ENDIAN
+#if (BYTE_ORDER == LITTLE_ENDIAN)
 #define htobe16(x) _byteswap_ushort(x)
 #define htole16(x) (x)
 #define be16toh(x) _byteswap_ushort(x)
@@ -52,8 +56,7 @@
 #define htole64(x) (x)
 #define be64toh(x) _byteswap_uint64(x)
 #define le64toh(x) (x)
-
-#elif BYTE_ORDER == BIG_ENDIAN
+#else
 #define htobe16(x) (x)
 #define htole16(x) _byteswap_ushort(x)
 #define be16toh(x) (x)
@@ -66,9 +69,6 @@
 #define htole64(x) _byteswap_uint64(x)
 #define be64toh(x) (x)
 #define le64toh(x) _byteswap_uint64(x)
-
-#else
-#error WINDOWS系统字节序未能识别
 #endif
 
 #define __BYTE_ORDER BYTE_ORDER
@@ -76,9 +76,10 @@
 #define __LITTLE_ENDIAN LITTLE_ENDIAN
 #define __PDP_ENDIAN PDP_ENDIAN
 
-#endif
+#else
+#error 无法识别字节序
 
-FINGERA_EXTERN_C_BEGIN
+#endif
 
 static inline uint16_t readle16(const void *buf) {
   uint16_t value;
