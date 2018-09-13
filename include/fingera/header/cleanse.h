@@ -8,6 +8,9 @@
 #ifndef _FINGERA_HEADER_CLEANSE_H_
 #define _FINGERA_HEADER_CLEANSE_H_
 
+#include <stdlib.h>
+#include <string.h>
+
 #include <fingera/header/os.h>
 #include <fingera/header/utility.h>
 
@@ -15,13 +18,21 @@
 #include <Windows.h>
 #define cleanse SecureZeroMemory
 #else
-#include <string.h>
 static inline void cleanse(void *ptr, size_t size) {
   memset(ptr, 0, size);
   __asm__ __volatile__("" : : "r"(ptr) : "memory");
 }
 #endif
 
-// void explicit_bzero(void *b, size_t len);
+static inline void *malloc_zero(size_t size) {
+  void *ptr = malloc(size);
+  memset(ptr, 0, size);
+  return ptr;
+}
+
+static inline void free_se(void *ptr, size_t size) {
+  cleanse(ptr, size);
+  free(ptr);
+}
 
 #endif  // _FINGERA_HEADER_CLEANSE_H_

@@ -9,6 +9,8 @@
 #ifndef _FINGERA_HEADER_UTILITY_H_
 #define _FINGERA_HEADER_UTILITY_H_
 
+#include <stdbool.h>
+
 #include <fingera/header/compiler.h>
 
 #ifndef _countof_
@@ -17,12 +19,6 @@
 
 #ifndef _unused_
 #define _unused_(x) (void)x;
-#endif
-
-#if FINGERA_COMPILER == FINGERA_COMPILER_MSVC && FINGERA_COMPILER_MAJOR <= 12
-#ifndef inline
-#define inline __inline
-#endif  // inline
 #endif
 
 #endif  // _FINGERA_HEADER_UTILITY_H_
