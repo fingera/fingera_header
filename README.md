@@ -1,1 +1,3 @@
-将识别编译器 目标系统 字节序 等 Header-Only 的代码集中
+fingera_header Header-Only
+=====================================
+[![Build Status](https://travis-ci.org/fingera/fingera_header.svg?branch=master)](https://travis-ci.org/fingera/fingera_header)[![Build status](https://ci.appveyor.com/api/projects/status/k4c7h6lfjli8hx91/branch/master?svg=true)](https://ci.appveyor.com/project/fingera/fingera-header/branch/master)[![Coverage Status](https://coveralls.io/repos/github/fingera/fingera_header/badge.svg?branch=master)](https://coveralls.io/github/fingera/fingera_header?branch=master)
