@@ -141,4 +141,13 @@ static inline void writebe64(void *buf, uint64_t value) {
 
 FINGERA_EXTERN_C_END
 
+#if defined(__cplusplus)
+
+static inline uint8_t htobe(uint8_t v) { return v; }
+static inline uint16_t htobe(uint16_t v) { return htobe16(v); }
+static inline uint32_t htobe(uint32_t v) { return htobe32(v); }
+static inline uint64_t htobe(uint64_t v) { return htobe64(v); }
+
+#endif
+
 #endif  // _FINGERA_HEADER_ENDIAN_H_

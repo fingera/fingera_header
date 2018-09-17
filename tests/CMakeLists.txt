@@ -1,6 +1,7 @@
 
 add_executable( test_fingera_header
   test_header.cpp
+  test_reflect.cpp
 )
 
 target_link_libraries( test_fingera_header fingera_header gtest_main )
