@@ -22,6 +22,15 @@ TEST(fingera_header, all) {
   EXPECT_EQ(readle64(buffer), 0x0706050403020100ull);
   EXPECT_EQ(readbe64(buffer), 0x0001020304050607ull);
 
+  EXPECT_EQ(readle<uint8_t>(buffer), 0x00);
+  EXPECT_EQ(readbe<uint8_t>(buffer), 0x00);
+  EXPECT_EQ(readle<uint16_t>(buffer), 0x0100);
+  EXPECT_EQ(readbe<uint16_t>(buffer), 0x0001);
+  EXPECT_EQ(readle<uint32_t>(buffer), 0x03020100ul);
+  EXPECT_EQ(readbe<uint32_t>(buffer), 0x00010203ul);
+  EXPECT_EQ(readle<uint64_t>(buffer), 0x0706050403020100ull);
+  EXPECT_EQ(readbe<uint64_t>(buffer), 0x0001020304050607ull);
+
   writele16(write_buf, 0x0100);
   EXPECT_FALSE(memcmp(write_buf, buffer, 2));
   writebe16(write_buf, 0x0001);
@@ -33,6 +42,23 @@ TEST(fingera_header, all) {
   writele64(write_buf, 0x0706050403020100ull);
   EXPECT_FALSE(memcmp(write_buf, buffer, 8));
   writebe64(write_buf, 0x0001020304050607ull);
+  EXPECT_FALSE(memcmp(write_buf, buffer, 8));
+
+  writele(write_buf, (uint8_t)0x00);
+  EXPECT_FALSE(memcmp(write_buf, buffer, 1));
+  writebe(write_buf, (uint8_t)0x00);
+  EXPECT_FALSE(memcmp(write_buf, buffer, 1));
+  writele(write_buf, (uint16_t)0x0100);
+  EXPECT_FALSE(memcmp(write_buf, buffer, 2));
+  writebe(write_buf, (uint16_t)0x0001);
+  EXPECT_FALSE(memcmp(write_buf, buffer, 2));
+  writele(write_buf, (uint32_t)0x03020100ul);
+  EXPECT_FALSE(memcmp(write_buf, buffer, 4));
+  writebe(write_buf, (uint32_t)0x00010203ul);
+  EXPECT_FALSE(memcmp(write_buf, buffer, 4));
+  writele(write_buf, (uint64_t)0x0706050403020100ull);
+  EXPECT_FALSE(memcmp(write_buf, buffer, 8));
+  writebe(write_buf, (uint64_t)0x0001020304050607ull);
   EXPECT_FALSE(memcmp(write_buf, buffer, 8));
 
   printf("CompilerID: %d Major: %d Minor: %d\n", FINGERA_COMPILER,

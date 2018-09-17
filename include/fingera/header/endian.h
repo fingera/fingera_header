@@ -84,33 +84,33 @@ FINGERA_EXTERN_C_BEGIN
 static inline uint16_t readle16(const void *buf) {
   uint16_t value;
   memcpy(&value, buf, sizeof(value));
-  return htole16(value);
+  return le16toh(value);
 }
 static inline uint32_t readle32(const void *buf) {
   uint32_t value;
   memcpy(&value, buf, sizeof(value));
-  return htole32(value);
+  return le32toh(value);
 }
 static inline uint64_t readle64(const void *buf) {
   uint64_t value;
   memcpy(&value, buf, sizeof(value));
-  return htole64(value);
+  return le64toh(value);
 }
 
 static inline uint16_t readbe16(const void *buf) {
   uint16_t value;
   memcpy(&value, buf, sizeof(value));
-  return htobe16(value);
+  return be16toh(value);
 }
 static inline uint32_t readbe32(const void *buf) {
   uint32_t value;
   memcpy(&value, buf, sizeof(value));
-  return htobe32(value);
+  return be32toh(value);
 }
 static inline uint64_t readbe64(const void *buf) {
   uint64_t value;
   memcpy(&value, buf, sizeof(value));
-  return htobe64(value);
+  return be64toh(value);
 }
 
 static inline void writele16(void *buf, uint16_t value) {
@@ -147,6 +147,41 @@ static inline uint8_t htobe(uint8_t v) { return v; }
 static inline uint16_t htobe(uint16_t v) { return htobe16(v); }
 static inline uint32_t htobe(uint32_t v) { return htobe32(v); }
 static inline uint64_t htobe(uint64_t v) { return htobe64(v); }
+static inline uint8_t htole(uint8_t v) { return v; }
+static inline uint16_t htole(uint16_t v) { return htole16(v); }
+static inline uint32_t htole(uint32_t v) { return htole32(v); }
+static inline uint64_t htole(uint64_t v) { return htole64(v); }
+static inline uint8_t betoh(uint8_t v) { return v; }
+static inline uint16_t betoh(uint16_t v) { return be16toh(v); }
+static inline uint32_t betoh(uint32_t v) { return be32toh(v); }
+static inline uint64_t betoh(uint64_t v) { return be64toh(v); }
+static inline uint8_t letoh(uint8_t v) { return v; }
+static inline uint16_t letoh(uint16_t v) { return le16toh(v); }
+static inline uint32_t letoh(uint32_t v) { return le32toh(v); }
+static inline uint64_t letoh(uint64_t v) { return le64toh(v); }
+
+template <typename T>
+static inline T readbe(const void *buf) {
+  T value;
+  memcpy(&value, buf, sizeof(value));
+  return betoh(value);
+}
+template <typename T>
+static inline T readle(const void *buf) {
+  T value;
+  memcpy(&value, buf, sizeof(value));
+  return letoh(value);
+}
+template <typename T>
+static inline void writebe(void *buf, T value) {
+  value = htobe(value);
+  memcpy(buf, &value, sizeof(value));
+}
+template <typename T>
+static inline void writele(void *buf, T value) {
+  value = htole(value);
+  memcpy(buf, &value, sizeof(value));
+}
 
 #endif
 
