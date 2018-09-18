@@ -177,6 +177,30 @@ static inline int16_t letoh(int16_t v) { return le16toh(v); }
 static inline int32_t letoh(int32_t v) { return le32toh(v); }
 static inline int64_t letoh(int64_t v) { return le64toh(v); }
 
+namespace {
+template <typename Target, typename Source, Source (*to)(Source)>
+static inline Target ccc(Target value) {
+  static_assert(sizeof(Target) == sizeof(Source), "BAD");
+  union {
+    Target target;
+    Source source;
+  };
+  target = value;
+  source = to(source);
+  return target;
+}
+}  // namespace
+
+static inline float letoh(float v) { return ccc<float, uint32_t, letoh>(v); }
+static inline float betoh(float v) { return ccc<float, uint32_t, betoh>(v); }
+static inline double letoh(double v) { return ccc<double, uint64_t, letoh>(v); }
+static inline double betoh(double v) { return ccc<double, uint64_t, betoh>(v); }
+
+static inline float htole(float v) { return ccc<float, uint32_t, htole>(v); }
+static inline float htobe(float v) { return ccc<float, uint32_t, htobe>(v); }
+static inline double htole(double v) { return ccc<double, uint64_t, htole>(v); }
+static inline double htobe(double v) { return ccc<double, uint64_t, htobe>(v); }
+
 template <typename T>
 static inline T readbe(const void *buf) {
   T value;

@@ -61,6 +61,38 @@ TEST(fingera_header, all) {
   writebe(write_buf, (uint64_t)0x0001020304050607ull);
   EXPECT_FALSE(memcmp(write_buf, buffer, 8));
 
+  // https://en.wikipedia.org/wiki/Single-precision_floating-point_format
+  const uint8_t float_one[] = {
+      0x3f,
+      0x80,
+      0x00,
+      0x00,
+  };
+  const uint8_t float_one_le[] = {
+      0x00,
+      0x00,
+      0x80,
+      0x3f,
+  };
+  EXPECT_EQ(readbe<float>(float_one), 1.0f);
+  EXPECT_EQ(readle<float>(float_one_le), 1.0f);
+  writebe(write_buf, (float)1.0f);
+  EXPECT_FALSE(memcmp(write_buf, float_one, 4));
+  writele(write_buf, (float)1.0f);
+  EXPECT_FALSE(memcmp(write_buf, float_one_le, 4));
+  const uint8_t double_one[] = {
+      0x3f, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  };
+  const uint8_t double_one_le[] = {
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x3f,
+  };
+  EXPECT_EQ(readbe<double>(double_one), 1.0);
+  EXPECT_EQ(readle<double>(double_one_le), 1.0);
+  writebe(write_buf, (double)1.0);
+  EXPECT_FALSE(memcmp(write_buf, double_one, 8));
+  writele(write_buf, (double)1.0);
+  EXPECT_FALSE(memcmp(write_buf, double_one_le, 8));
+
   printf("CompilerID: %d Major: %d Minor: %d\n", FINGERA_COMPILER,
          FINGERA_COMPILER_MAJOR, FINGERA_COMPILER_MINOR);
   printf("OSID: %d\n", FINGERA_OS);
