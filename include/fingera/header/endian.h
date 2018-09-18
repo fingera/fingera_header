@@ -160,6 +160,23 @@ static inline uint16_t letoh(uint16_t v) { return le16toh(v); }
 static inline uint32_t letoh(uint32_t v) { return le32toh(v); }
 static inline uint64_t letoh(uint64_t v) { return le64toh(v); }
 
+static inline int8_t htobe(int8_t v) { return v; }
+static inline int16_t htobe(int16_t v) { return htobe16(v); }
+static inline int32_t htobe(int32_t v) { return htobe32(v); }
+static inline int64_t htobe(int64_t v) { return htobe64(v); }
+static inline int8_t htole(int8_t v) { return v; }
+static inline int16_t htole(int16_t v) { return htole16(v); }
+static inline int32_t htole(int32_t v) { return htole32(v); }
+static inline int64_t htole(int64_t v) { return htole64(v); }
+static inline int8_t betoh(int8_t v) { return v; }
+static inline int16_t betoh(int16_t v) { return be16toh(v); }
+static inline int32_t betoh(int32_t v) { return be32toh(v); }
+static inline int64_t betoh(int64_t v) { return be64toh(v); }
+static inline int8_t letoh(int8_t v) { return v; }
+static inline int16_t letoh(int16_t v) { return le16toh(v); }
+static inline int32_t letoh(int32_t v) { return le32toh(v); }
+static inline int64_t letoh(int64_t v) { return le64toh(v); }
+
 template <typename T>
 static inline T readbe(const void *buf) {
   T value;
